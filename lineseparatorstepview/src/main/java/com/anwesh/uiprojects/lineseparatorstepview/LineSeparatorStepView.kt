@@ -223,7 +223,7 @@ class LineSeparatorStepView(ctx : Context) : View(ctx) {
         fun create(activity : Activity) : LineSeparatorStepView {
             val view : LineSeparatorStepView = LineSeparatorStepView(activity)
             activity.setContentView(view)
-            return view 
+            return view
         }
     }
 }
