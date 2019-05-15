@@ -11,7 +11,6 @@ import android.content.Context
 import android.graphics.Paint
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.RectF
 
 val nodes : Int = 5
 val lines : Int = 5
@@ -21,6 +20,7 @@ val strokeFactor : Int = 90
 val sizeFactor : Float = 2.9f
 val foreColor : Int = Color.parseColor("#4CAF50")
 val backColor : Int = Color.parseColor("#BDBDBD")
+val delay : Long = 20
 
 fun Int.inverse() : Float = 1f / this
 fun Float.maxScale(i : Int, n : Int) : Float = Math.max(0f, this - i * n.inverse())
@@ -52,7 +52,7 @@ fun Canvas.drawLSSNode(i : Int, scale : Float, paint : Paint) {
     drawLine(x, size, x, size - lineGap, paint)
     for (j in 1..(lines - 1)) {
         val sc : Float = sc1.divideScale(j, lines)
-        x -= (2 * lineGap * (1f - 2 * (j % 2)))
+        x += (2 * lineGap * (1f - 2 * (j % 2)) * sc)
         y -= lineGap * sc
         save()
         translate(x, y)
@@ -106,7 +106,7 @@ class LineSeparatorStepView(ctx : Context) : View(ctx) {
             if (animated) {
                 cb()
                 try {
-                    Thread.sleep(50)
+                    Thread.sleep(delay)
                     view.invalidate()
                 } catch(ex : Exception) {
 
