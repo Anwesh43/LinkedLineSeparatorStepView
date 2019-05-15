@@ -217,4 +217,13 @@ class LineSeparatorStepView(ctx : Context) : View(ctx) {
             }
         }
     }
+
+    companion object {
+
+        fun create(activity : Activity) : LineSeparatorStepView {
+            val view : LineSeparatorStepView = LineSeparatorStepView(activity)
+            activity.setContentView(view)
+            return view 
+        }
+    }
 }
