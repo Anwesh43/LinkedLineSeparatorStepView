@@ -192,6 +192,28 @@ class LineSeparatorStepView(ctx : Context) : View(ctx) {
 
         fun startUpdating(cb : () -> Unit) {
             curr.startUpdating(cb)
-        } 
+        }
+    }
+
+    data class Renderer(var view : LineSeparatorStepView) {
+
+        private val animator : Animator = Animator(view)
+        private val lss : LineSeparatorStep = LineSeparatorStep(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            lss.draw(canvas, paint)
+            animator.animate {
+                lss.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            lss.startUpdating {
+                animator.start()
+            }
+        }
     }
 }
